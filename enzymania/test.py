@@ -1,11 +1,12 @@
 import pygame
 import elementtree.ElementTree as etree
 import random
-from EnzymaniaClasses import Drawable, Enzyme, Metabolite, Reaction, Source, Sink
+from EnzymaniaClasses import Drawable, Enzyme, Metabolite, Reaction, Source, Sink, Wall, PreviewPanel
 
 
 RUNNING = True
 FLOW = False
+
 
 def makeEnzymesMetabolites(reaction):
     prod = [Metabolite(name=p, y=random.randint(0, HEIGHT-100), x=random.randint(0, WIDTH-100))
@@ -14,18 +15,16 @@ def makeEnzymesMetabolites(reaction):
              for r in reaction.listOfReactants]
     reactnames = [r.name for r in react]
     prodnames = [p.name for p in prod]
-    e = Enzyme(x=random.randint(0, WIDTH-100), y=random.randint(0, HEIGHT-100), name=reaction.enzymeName,
-               products = prodnames, reactants = reactnames)
+    e = Enzyme(x=random.randint(0, WIDTH-100),
+               y=random.randint(0, HEIGHT-100),
+               name=reaction.enzymeName,
+               products=prodnames,
+               reactants=reactnames)
     return e, prod, react
 
-def addReactionSet(entityList, e, p, r, x, y):
+
+def addReactionSet(entityList, e, r, x=0, y=20):
     entityList.append(e)
-    #for pp in p:
-    #    pp.x = x
-    #    pp.xvel=1
-    #    pp.yvel = 0
-    #    print(pp.x, pp.y)
-    #    entityList.append(pp)
     for rr in r:
         rr.y = 20
         rr.x = 0
@@ -58,8 +57,8 @@ def checkEvents(entityList):
                 e, p, r = makeEnzymesMetabolites(REACTIONSET[0])
                 #todo
                 dummy = Source()
-                addReactionSet(entityList, e, p, r, dummy.x+dummy.xsize, dummy.y+dummy.ysize)
-                reactionCounter+=1
+                addReactionSet(entityList, e, r, dummy.x+dummy.xsize, dummy.y+dummy.ysize)
+                reactionCounter += 1
             elif event.key == pygame.K_f:
                 if not FLOW:
                     FLOW = True
@@ -73,7 +72,7 @@ def checkEvents(entityList):
             if event.buttons[0]:
                 # clicked and moving
                 rel = event.rel
-                enzymeList = [e for e in entityList if isinstance(e,Enzyme)]
+                enzymeList = [e for e in entityList if isinstance(e, Enzyme)]
                 for entity in enzymeList:
                     if entity.shape.collidepoint(pygame.mouse.get_pos()):
                         entity.x += rel[0]
@@ -119,6 +118,7 @@ def spawnEnzyme(entityList,x=random.randint(50,WIDTH-50),y=random.randint(50,HEI
     e.y=y
     entityList.append(e)
 
+
 def main():
     pygame.init()
     #todo
@@ -127,6 +127,7 @@ def main():
     metabolite_font=pygame.font.Font("SFSquareHead.ttf", 18)
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Enzymania")
     pygame.mouse.set_visible(1)
     clock = pygame.time.Clock()
     #init reactionlist
@@ -139,6 +140,8 @@ def main():
     print(REACTIONSET)
     appendSource(entityList)
     appendSink(entityList)
+    entityList.append(Wall())
+    entityList.append(PreviewPanel())
     spawningTime = 0
     while RUNNING:
         dt = clock.tick(60)
@@ -167,6 +170,8 @@ def main():
                 screen.blit(screen, (0, 0))
             e.move()
             e.draw(screen)
+            if isinstance(e,Sink):
+                pygame.draw.rect(screen, e.color, e.boundingbox, 2)
 
         pygame.display.flip()
 
