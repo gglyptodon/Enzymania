@@ -186,9 +186,6 @@ class Drawable(object):
             x = self.xvel
         if y is None:
             y = self.yvel
-        #self.x += math.sin(self._angle) * self.xvel
-        #self.y += math.cos(self._angle) * self.yvel
-        #self.angle+=10
         self.x += self.xvel
         self.y += self.yvel
 
@@ -277,24 +274,26 @@ class Drawable(object):
         other.move()
 
 class Enzyme(Drawable):
+
+
     def __init__(self, *args, **kwargs):
         Drawable.__init__(self) # *args, **kwargs)
         self.xsize=50
         self.ysize=30
         self.xvel=0
         self.yvel=0
-        self.x =  kwargs.get('x', 0)
-        self.y =  kwargs.get('y', 0)
-        self.name = kwargs.get('name',"")
+        self.x = kwargs.get('x', 0)
+        self.y = kwargs.get('y', 0)
+        self.name = kwargs.get('name', "")
         """products and reactants are strings"""
         self.products = kwargs.get('products', [])
         self.reactants = kwargs.get('reactants', [])
 
-    def explode(self):
-        for i in range(2,16):
-           #todo width
-            self.x=801
-            self.y=601
+    def explode(self, other):
+        #let the metabolite disappear
+        other.x = -100
+        other.y = -100
+
     def bounceOff(self, other):
         new=other
         if isinstance(other,Enzyme):
@@ -307,33 +306,31 @@ class Enzyme(Drawable):
                 print(tmp.name,"NAME")
                 new = Metabolite(name=self.products[0])
                 print(other.name, "NAMEn", self.products[0])
-                other.name= self.products[0]
+                other.name = self.products[0]
                 print(other.name+" NAME3")
                 if other.xvel >0:
                     other.x = tmp.x+self.xsize
                 else:
                     other.x = tmp.x-self.xsize
-                if other.yvel >0:
+                if other.yvel > 0:
                     other.y = tmp.y+self.ysize
                 else:
                     other.y = tmp.y-self.ysize
 
-
-
             else:
-                self.color=(0,90,200)
-                self.explode()
+                self.color = (0, 90, 200)
+                self.explode(other)
        #todo
         if isinstance(other, Metabolite):
             other.bounceOff(self)
         return(new)
+
 
 class Metabolite(Drawable):
     def __init__(self, *args, **kwargs):
         Drawable.__init__(self, *args, **kwargs)
         self.xsize = 15
         self.ysize = 15
-
 
     def bounceOff(self, other):
         res = self.name+" collided with "+other.name
@@ -379,50 +376,96 @@ class Metabolite(Drawable):
         other.move()
         return(None)
 
+
 class Source(Drawable):
     def __init__(self, *args, **kwargs):
         Drawable.__init__(self, *args, **kwargs)
-        self.xsize = 10
+        self.xsize = 50
         self.ysize = 20
         self.xvel = 0
         self.yvel = 0
-        self.color = (255,255,255)
+        self.color = (255, 255, 255)
         if "sourceMetab" in kwargs:
             self.sourceMetab = kwargs["sourceMetab"]
         else:
             self.sourceMetab = None
 
+
 class Sink(Drawable):
     def __init__(self, *args, **kwargs):
         Drawable.__init__(self, *args, **kwargs)
-        self.xsize = 20
+        self.xsize = 50
         self.ysize = 10
-        self.color = (255,255,000)
-        self.x = 700
-        self.y = 0
+        self.color = (255, 255, 0)
+        self.x = 750
+        self.y = 50-10
         self.xvel = 0
         self.yvel = 0
+        self.boundingbox = pygame.Rect(self.x, 0, self.xsize, 50)
         if "sinkMetab" in kwargs:
             self.sinkMetab = kwargs["sinkMetab"]
         else:
             self.sinkMetab = None
+
+    def bounceOff(self, other):
+        if self.sinkMetab == other.name:
+            self.y -= 5
+            self.ysize += 5
+            #
+            other.x = -100
+            other.y = -100
+
+
+class Wall(Drawable):
+    def __init__(self, *args, **kwargs):
+        Drawable.__init__(self, *args, **kwargs)
+        self.x = 0
+        self.y = 500
+        self.xsize = 800
+        self.ysize = 5
+        self.xvel = 0
+        self.yvel = 0
+        self.color = (0, 0, 255)
+        #self.shape.width = 2
+        #self.boundingbox = pygame.Rect(self.x,1 , self.xsize, 50)
+
+        #if "sourceMetab" in kwargs:
+        #self.sourceMetab = kwargs["sourceMetab"]
+        #else:
+        #   self.sourceMetab = None
+
+
+class PreviewPanel(Drawable):
+    def __init__(self, *args, **kwargs):
+        Drawable.__init__(self, *args, **kwargs)
+        self.x = 0
+        self.y = 500
+        self.xsize = 800
+        self.ysize = 5
+        self.xvel = 0
+        self.yvel = 0
+        self.color = (0, 0, 255)
 
 
 class Reaction(object):
     def __init__(self, name=None, enzymeName=None, listOfReactants=None, listOfProducts=None):
         self._name = name
         self._enzymeName = enzymeName.split("-RXN")[0]
-        self._listOfReactants = listOfReactants
-        self._listOfProducts = listOfProducts
+        self._listOfReactants = [r.replace("__", "_") for r in listOfReactants]
+        self._listOfProducts = [p.replace("__", "_") for p in listOfProducts]
+
     @property
     def name(self):
         return self._name
+
     @property
     def enzymeName(self):
         return self._enzymeName
+
     @property
     def listOfProducts(self):
         return self._listOfProducts
+
     @property
     def listOfReactants(self):
         return self._listOfReactants
