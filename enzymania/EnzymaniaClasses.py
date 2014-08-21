@@ -39,7 +39,7 @@ class Drawable(object):
         fontx = self.x-tmpwidth/2+math.sin(self.textxOffset)*60
         #else:
         #    fontx = self.x-tmpwidth/2-self.textxOffset
-        self.textxOffset+=0.02
+        self.textxOffset += 0.02
         #self.textxOffset%tmpwidth
         screen.blit(tmpfont, (fontx, self.y-tmpheight))
         #pygame.display.update()
@@ -181,13 +181,20 @@ class Drawable(object):
             #TODO
             pass
 
-    def move(self, x=None, y=None):
+    def move(self, x=None, y=None, boundx=700, boundy=600):
         if x is None:
             x = self.xvel
         if y is None:
             y = self.yvel
-        self.x += self.xvel
-        self.y += self.yvel
+
+        if not self.x + self.xvel > boundx:
+            self.x += self.xvel
+        else:
+            self.xvel *=-1
+        if not (self.y + self.yvel) > boundy:
+            self.y += self.yvel
+        else:
+            self.yvel *= -1
 
     def checkCollision(self, other):
         try:
@@ -213,22 +220,6 @@ class Drawable(object):
         except TypeError as e:
             print(e)
 
-    def bounceOffOld(self, other):
-        if self.x+self.xsize > other.x or self.x < other.x+other.xsize:
-            if self.xvel > 0:
-                self.xvel += 0
-            else:
-                self.xvel -= 0
-            self.xvel *= -1
-            #self.move()
-
-        elif self.y+self.ysize > other.y or self.y < other.ysize:
-            if self.yvel > 0:
-                self.yvel += 0
-            else:
-                self.yvel -= 0
-            self.yvel *=-1
-#        self.move()
 
     def bounceOff(self, other):
         res = self.name+" collided with "+other.name
@@ -275,7 +266,6 @@ class Drawable(object):
 
 class Enzyme(Drawable):
 
-
     def __init__(self, *args, **kwargs):
         Drawable.__init__(self) # *args, **kwargs)
         self.xsize=50
@@ -295,8 +285,8 @@ class Enzyme(Drawable):
         other.y = -100
 
     def bounceOff(self, other):
-        new=other
-        if isinstance(other,Enzyme):
+        new = other
+        if isinstance(other, Enzyme) or isinstance(other, Wall) or isinstance(other, PreviewPanel):
             pass
         else:
             print(other.name, self.reactants)
@@ -323,7 +313,7 @@ class Enzyme(Drawable):
        #todo
         if isinstance(other, Metabolite):
             other.bounceOff(self)
-        return(new)
+        return new
 
 
 class Metabolite(Drawable):
@@ -433,18 +423,36 @@ class Wall(Drawable):
         #self.sourceMetab = kwargs["sourceMetab"]
         #else:
         #   self.sourceMetab = None
+    def bounceOff(self, other):
+        pass
 
 
 class PreviewPanel(Drawable):
     def __init__(self, *args, **kwargs):
-        Drawable.__init__(self, *args, **kwargs)
-        self.x = 0
-        self.y = 500
-        self.xsize = 800
-        self.ysize = 5
+        Drawable.__init__(self,*args, **kwargs)
+        self.x = 500
+        self.y = 505
+        self.xsize = 10
+        self.ysize = 100
         self.xvel = 0
         self.yvel = 0
         self.color = (0, 0, 255)
+        self.nextEnzyme = None
+        if "nextEnzyme" in kwargs:
+            self.nextEnzyme = kwargs["nextEnzyme"]
+
+    def addText(self, screen, font, x=660, y=550):
+        if self.nextEnzyme:
+            #self.nextEnzyme.x = x
+            #self.nextEnzyme.y = y
+            self.nextEnzyme.addText(screen=screen, font=font)
+
+    def bounceOff(self, other):
+        pass
+
+
+    #def addText(self, screen, font):
+    #    self.nextMetab.addText(screen=screen, font=font)
 
 
 class Reaction(object):
@@ -472,3 +480,31 @@ class Reaction(object):
 
     def __repr__(self):
         return self.enzymeName+"\nProd: "+",".join(self._listOfProducts)+"\nReact: "+",".join(self.listOfReactants)
+
+
+class Score(Drawable):
+    def __init__(self, *args, **kwargs):
+        Drawable.__init__(self,*args, **kwargs)
+        self.x = 500
+        self.y = 505
+        self.xsize = 10
+        self.ysize = 100
+        self.xvel = 0
+        self.yvel = 0
+        self.color = (0, 0, 255)
+        self.nextEnzyme = None
+        if "nextEnzyme" in kwargs:
+            self.nextEnzyme = kwargs["nextEnzyme"]
+
+    def addText(self, screen, font, x=660, y=550):
+        if self.nextEnzyme:
+            #self.nextEnzyme.x = x
+            #self.nextEnzyme.y = y
+            self.nextEnzyme.addText(screen=screen, font=font)
+
+    def bounceOff(self, other):
+        pass
+
+
+        #def addText(self, screen, font):
+        #    self.nextMetab.addText(screen=screen, font=font)
