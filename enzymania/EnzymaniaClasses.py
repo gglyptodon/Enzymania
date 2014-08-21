@@ -220,6 +220,22 @@ class Drawable(object):
         except TypeError as e:
             print(e)
 
+#    def bounceOffOld(self, other):
+#        if self.x+self.xsize > other.x or self.x < other.x+other.xsize:
+#            if self.xvel > 0:
+#                self.xvel += 0
+#            else:
+#                self.xvel -= 0
+#            self.xvel *= -1
+#            #self.move()
+#
+#        elif self.y+self.ysize > other.y or self.y < other.ysize:
+#            if self.yvel > 0:
+#                self.yvel += 0
+#            else:
+#                self.yvel -= 0
+#            self.yvel *=-1
+#        self.move()
 
     def bounceOff(self, other):
         res = self.name+" collided with "+other.name
@@ -392,6 +408,7 @@ class Sink(Drawable):
         self.xvel = 0
         self.yvel = 0
         self.boundingbox = pygame.Rect(self.x, 0, self.xsize, 50)
+        self.score = 0
         if "sinkMetab" in kwargs:
             self.sinkMetab = kwargs["sinkMetab"]
         else:
@@ -401,9 +418,17 @@ class Sink(Drawable):
         if self.sinkMetab == other.name:
             self.y -= 5
             self.ysize += 5
-            #
+            self.score += 1
             other.x = -100
             other.y = -100
+    def addText(self, screen, font):
+        tmpfont = font.render(str(self.score), True, (0,255,0))
+        rect = tuple(tmpfont.get_rect())
+        print(rect)
+        #tmpwidth = rect[2]
+        tmpheight = rect[3]
+        self.textxOffset+=0.02
+        screen.blit(tmpfont, (self.x+self.xsize/3, self.y+tmpheight))
 
 
 class Wall(Drawable):
@@ -456,11 +481,12 @@ class PreviewPanel(Drawable):
 
 
 class Reaction(object):
-    def __init__(self, name=None, enzymeName=None, listOfReactants=None, listOfProducts=None):
+    def __init__(self, name=None, enzymeName=None, listOfReactants=None, listOfProducts=None, pathway=None):
         self._name = name
         self._enzymeName = enzymeName.split("-RXN")[0]
         self._listOfReactants = [r.replace("__", "_") for r in listOfReactants]
         self._listOfProducts = [p.replace("__", "_") for p in listOfProducts]
+        self._pathway = pathway
 
     @property
     def name(self):
@@ -477,6 +503,10 @@ class Reaction(object):
     @property
     def listOfReactants(self):
         return self._listOfReactants
+
+    @property
+    def pathway(self):
+        return self._pathway
 
     def __repr__(self):
         return self.enzymeName+"\nProd: "+",".join(self._listOfProducts)+"\nReact: "+",".join(self.listOfReactants)
