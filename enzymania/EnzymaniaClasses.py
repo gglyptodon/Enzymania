@@ -32,7 +32,7 @@ class Drawable(object):
     def addText(self, screen, font):
         tmpfont = font.render(self.name, True, (0,255,0))
         rect = tuple(tmpfont.get_rect())
-        print(rect)
+        #print(rect)
         tmpwidth = rect[2]
         tmpheight = rect[3]
         #if self.x-tmpwidth/2+self.textxOffset  < self.x-tmpwidth/2:
@@ -181,7 +181,7 @@ class Drawable(object):
             #TODO
             pass
 
-    def move(self, x=None, y=None, boundx=700, boundy=600):
+    def move(self, x=None, y=None, boundx=800, boundy=500):
         if x is None:
             x = self.xvel
         if y is None:
@@ -305,15 +305,15 @@ class Enzyme(Drawable):
         if isinstance(other, Enzyme) or isinstance(other, Wall) or isinstance(other, PreviewPanel):
             pass
         else:
-            print(other.name, self.reactants)
+            #print(other.name, self.reactants)
             if other.name in self.reactants:
                 self.color=(20,200,22)
                 tmp = other
-                print(tmp.name,"NAME")
+                #print(tmp.name,"NAME")
                 new = Metabolite(name=self.products[0])
-                print(other.name, "NAMEn", self.products[0])
+                #print(other.name, "NAMEn", self.products[0])
                 other.name = self.products[0]
-                print(other.name+" NAME3")
+                #print(other.name+" NAME3")
                 if other.xvel >0:
                     other.x = tmp.x+self.xsize
                 else:
@@ -424,7 +424,7 @@ class Sink(Drawable):
     def addText(self, screen, font):
         tmpfont = font.render(str(self.score), True, (0,255,0))
         rect = tuple(tmpfont.get_rect())
-        print(rect)
+        #print(rect)
         #tmpwidth = rect[2]
         tmpheight = rect[3]
         self.textxOffset+=0.02

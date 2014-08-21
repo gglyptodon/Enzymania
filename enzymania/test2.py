@@ -77,7 +77,7 @@ def checkEvents(entityList):
                 enzymeList = [e for e in entityList if isinstance(e, Enzyme)]
                 for entity in enzymeList:
                     if entity.shape.collidepoint(pygame.mouse.get_pos()):
-                        print("entity", entity)
+                        #print("entity", entity)
                         entity.x += rel[0]
                         entity.y += rel[1]
                         break
@@ -147,7 +147,7 @@ def main():
     global SCORE
     RUNNING = True
     entityList = []
-    print(REACTIONSET)
+    #print(REACTIONSET)
     appendSource(entityList)
     appendSink(entityList)
     entityList.append(Wall())
@@ -218,6 +218,22 @@ def isOutOfSight(entity):
     return out
 
 
+def getSortedSp (species_list,weights):
+    print(species_list)
+    #for reactantlist in reaction.getiterator(tag='listOfReactants'):
+    newSpList = []
+#    for reactantlist in reaction.getiterator(tag='listOfReactants'):
+    for species in species_list:
+        for eachsp in species:
+            newSpList.append(eachsp.attrib['species'])
+    sortedSp={}
+    for key in newSpList:
+        sortedSp[key] = weights[key]
+    sortedSpList = sorted(sortedSp.iteritems(), key=operator.itemgetter(1))
+    sortedSpList = sortedSpList[::-1]
+    sortedSpList = [x[0] for x in sortedSpList]
+    return sortedSpList
+
 def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',pathway_name=None):
     all_reac_prod = {}
     weights = {}
@@ -227,7 +243,7 @@ def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',path
         met = line.split('\t')[0] #todo with real input may or maynot need a replace command
         w_met = float(line.split('\t') [1])
         weights[met] = w_met
-    print(weights)
+    #print(weights)
 
     pathwaytree = etree.parse(xml)
     pathwaytree = pathwaytree.getroot()
@@ -242,41 +258,44 @@ def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',path
                 newProductList = []
                 try:
                     newReactionName = reaction.attrib['name']
-                    for reactantlist in reaction.getiterator(tag='listOfReactants'):
-                        for reactant in reactantlist:
-                            newReactantList.append(reactant.attrib['species'])
-                    for productlist in reaction.getiterator(tag='listOfProducts'):
-                        for product in productlist:
-                            newProductList.append(product.attrib['species'])
+                    newReactantList = getSortedSp(species_list=reaction.getiterator(tag='listOfReactants'),weights=weights)
+                    newProductList = getSortedSp(species_list=reaction.getiterator(tag='listOfProducts'),weights=weights)
+#                    for reactantlist in reaction.getiterator(tag='listOfReactants'):
+#                        for reactant in reactantlist:
+#                            newReactantList.append(reactant.attrib['species'])
+#                    for productlist in reaction.getiterator(tag='listOfProducts'):
+#                        for product in productlist:
+#                            newProductList.append(product.attrib['species'])
                     r = Reaction(name=newReactionName, enzymeName=newReactionName, listOfProducts=newProductList, listOfReactants=newReactantList, pathway=pathway.attrib['name'])
                     res.append(r)
-                    sortedReactants={}
-                    for key in newReactantList:
-                        sortedReactants[key] = weights[key]
-                    sortedReactants = sorted(sortedReactants.iteritems(), key=operator.itemgetter(1))
-                    sortedReactants = sortedReactants[::-1]
-                    sortedProducts={}
-                    for key in newProductList:
-                        sortedProducts[key] = weights[key]
-                    print sortedProducts
-                    sortedProducts = sorted(sortedProducts.iteritems(), key=operator.itemgetter(1))
-                    sortedProducts = sortedProducts[::-1]
-                    num_pairs = min(len(sortedReactants),len(sortedProducts))
+#                    sortedReactants={}
+#                    for key in newReactantList:
+#                        sortedReactants[key] = weights[key]
+#                    sortedReactants = sorted(sortedReactants.iteritems(), key=operator.itemgetter(1))
+#                    sortedReactants = sortedReactants[::-1]
+#                    sortedProducts={}
+#                    for key in newProductList:
+#                        sortedProducts[key] = weights[key]
+                    #print sortedProducts
+#                    sortedProducts = sorted(sortedProducts.iteritems(), key=operator.itemgetter(1))
+#                    sortedProducts = sortedProducts[::-1]
+                    num_pairs = min(len(newReactantList),len(newProductList))
                     for i in range(0,num_pairs):
-                        all_reac_prod[sortedReactants[i][0]] = sortedProducts[i][0]
+                        all_reac_prod[newReactantList[i]] = newProductList[i]
 #                    print (sortedReactants)
 #                    print (sortedProducts)
+                    print (all_reac_prod)
                 except Exception as e:
                     print(e)
-                    sys.exit(1)
+                    #sys.exit(1)
             #print newProductList
             #print newReactantList
     # makes set of all enzymes in the source file and positions at bottom of screen
     # for iteration & tag == reaction
     #   newEnzyme(name, metabolites_in, metabolites_out)
     # Drawable(name='my name')
-    for i in res:
-        print(i)
+    #for i in res:
+        #print(i)
     return res
 
 if __name__ == "__main__":

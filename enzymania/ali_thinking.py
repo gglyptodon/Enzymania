@@ -1,4 +1,4 @@
-# while reading xml file. Keep list of all products and all reactants. (dictionary)
+# while reading xml file. Keep list of all products and all reactants. (tuple)
 
 # throw out everything that is not both reactant and product (not in a circle)
 
