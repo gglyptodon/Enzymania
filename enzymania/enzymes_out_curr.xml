@@ -1,0 +1,605 @@
+<root>
+<pathway name="CALVIN-PWY">
+<reaction id="RIBULP3EPIM_RXN" name="RIBULP3EPIM-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="RIBULOSE_5P" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="XYLULOSE_5_PHOSPHATE" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="_1TRANSKETO_RXN" name="1TRANSKETO-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="D_SEDOHEPTULOSE_7_P" stoichiometry="1" />
+      <speciesReference species="GAP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="RIBOSE_5P" stoichiometry="1" />
+      <speciesReference species="XYLULOSE_5_PHOSPHATE" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="SEDOBISALDOL_RXN" name="SEDOBISALDOL-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="DIHYDROXY_ACETONE_PHOSPHATE" stoichiometry="1" />
+      <speciesReference species="ERYTHROSE_4P" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="D_SEDOHEPTULOSE_1_7_P2" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="RIB5PISOM_RXN" name="RIB5PISOM-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="RIBOSE_5P" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="RIBULOSE_5P" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="PHOSPHORIBULOKINASE_RXN" name="PHOSPHORIBULOKINASE-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="RIBULOSE_5P" stoichiometry="1" />
+      <speciesReference species="ATP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="H+" stoichiometry="1" />
+      <speciesReference species="D_RIBULOSE_15_P2" stoichiometry="1" />
+      <speciesReference species="ADP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="_2TRANSKETO_RXN" name="2TRANSKETO-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="ERYTHROSE_4P" stoichiometry="1" />
+      <speciesReference species="XYLULOSE_5_PHOSPHATE" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="FRUCTOSE_6P" stoichiometry="1" />
+      <speciesReference species="GAP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="SEDOHEPTULOSE_BISPHOSPHATASE_RXN" name="SEDOHEPTULOSE-BISPHOSPHATASE-RXN" reversible="false">
+   <listOfReactants>
+      <speciesReference species="H2O" stoichiometry="1" />
+      <speciesReference species="D_SEDOHEPTULOSE_1_7_P2" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="Pi" stoichiometry="1" />
+      <speciesReference species="D_SEDOHEPTULOSE_7_P" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="_1__46__2__46__1__46__13_RXN" name="1.2.1.13-RXN" reversible="false">
+   <listOfReactants>
+      <speciesReference species="DPG" stoichiometry="1" />
+      <speciesReference species="NADPH" stoichiometry="1" />
+      <speciesReference species="H+" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="GAP" stoichiometry="1" />
+      <speciesReference species="Pi" stoichiometry="1" />
+      <speciesReference species="NADP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="RIBULOSE_BISPHOSPHATE_CARBOXYLASE_RXN" name="Rubisco" reversible="true">
+   <listOfReactants>
+      <speciesReference species="G3P" stoichiometry="2" />
+      <speciesReference species="H+" stoichiometry="2" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="D_RIBULOSE_15_P2" stoichiometry="1" />
+      <speciesReference species="CO2" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="F16ALDOLASE_RXN" name="F16ALDOLASE-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="FRUCTOSE_16_DIPHOSPHATE" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="DIHYDROXY_ACETONE_PHOSPHATE" stoichiometry="1" />
+      <speciesReference species="GAP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="PHOSGLYPHOS_RXN" name="PHOSGLYPHOS-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="G3P" stoichiometry="1" />
+      <speciesReference species="ATP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="DPG" stoichiometry="1" />
+      <speciesReference species="ADP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="F16BDEPHOS_RXN" name="F16BDEPHOS-RXN" reversible="false">
+   <listOfReactants>
+      <speciesReference species="FRUCTOSE_16_DIPHOSPHATE" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="FRUCTOSE_6P" stoichiometry="1" />
+      <speciesReference species="Pi" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="TRIOSEPISOMERIZATION_RXN" name="TRIOSEPISOMERIZATION-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="GAP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="DIHYDROXY_ACETONE_PHOSPHATE" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+</pathway>
+<pathway name="PWY-241">
+<reaction id="MALIC_NADP_RXN" name="NADP-ME" reversible="false">
+   <listOfReactants>
+      <speciesReference species="MAL" stoichiometry="1" />
+      <speciesReference species="NADP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="NADPH" stoichiometry="1" />
+      <speciesReference species="CO2" stoichiometry="1" />
+      <speciesReference species="PYR" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="PEPCARBOX_RXN" name="PEPC" reversible="true">
+   <listOfReactants>
+      <speciesReference species="PEP" stoichiometry="1" />
+      <speciesReference species="HCO3" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="Pi" stoichiometry="1" />
+      <speciesReference species="OA" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="MALATE_DEHYDROGENASE_NADP_RXN" name="NADP-MDH" reversible="false">
+   <listOfReactants>
+      <speciesReference species="H+" stoichiometry="1" />
+      <speciesReference species="NADPH" stoichiometry="1" />
+      <speciesReference species="OA" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="MAL" stoichiometry="1" />
+      <speciesReference species="NADP" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="PYRUVATEORTHOPHOSPHATE_DIKINASE_RXN" name="PPDK" reversible="false">
+   <listOfReactants>
+      <speciesReference species="PYR" stoichiometry="1" />
+      <speciesReference species="Pi" stoichiometry="1" />
+      <speciesReference species="ATP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="H+" stoichiometry="1" />
+      <speciesReference species="PEP" stoichiometry="1" />
+      <speciesReference species="AMP" stoichiometry="1" />
+      <speciesReference species="PPI" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+</pathway><pathway name="TCA"><reaction id="SUCCINATE_DEHYDROGENASE_UBIQUINONE_RXN" name="SUCCINATE-DEHYDROGENASE-UBIQUINONE-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="Ubiquinones" stoichiometry="1" />
+      <speciesReference species="SUC_CCO_IN" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="Ubiquinols" stoichiometry="1" />
+      <speciesReference species="FUM_CCO_IN" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="MALATE_DEH_RXN" name="MALATE-DEH-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="MAL" stoichiometry="1" />
+      <speciesReference species="NAD" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="H+" stoichiometry="1" />
+      <speciesReference species="OA" stoichiometry="1" />
+      <speciesReference species="NADH" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="_2OXOGLUTARATEDEH_RXN" name="2OXOGLUTARATEDEH-RXN" reversible="false">
+   <listOfReactants>
+      <speciesReference species="2-OG" stoichiometry="1" />
+      <speciesReference species="CO_A" stoichiometry="1" />
+      <speciesReference species="NAD" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="SUC_COA" stoichiometry="1" />
+      <speciesReference species="CO2" stoichiometry="1" />
+      <speciesReference species="NADH" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="MALATE_DEHYDROGENASE_ACCEPTOR_RXN" name="MALATE-DEHYDROGENASE-ACCEPTOR-RXN" reversible="false">
+   <listOfReactants>
+      <speciesReference species="MAL" stoichiometry="1" />
+      <speciesReference species="Quinones" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="OA" stoichiometry="1" />
+      <speciesReference species="Reduced_Quinones" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="SUCCCOASYN_RXN" name="SUCCCOASYN-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="SUC" stoichiometry="1" />
+      <speciesReference species="CO_A" stoichiometry="1" />
+      <speciesReference species="ATP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="SUC_COA" stoichiometry="1" />
+      <speciesReference species="ADP" stoichiometry="1" />
+      <speciesReference species="Pi" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="FUMHYDR_RXN" name="FUMHYDR-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="MAL" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="FUM" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="ACONITATEHYDR_RXN" name="ACONITATEHYDR-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="CIS_ACONITATE" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="THREO_DS_ISO_CITRATE" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="CITSYN_RXN" name="CITSYN-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="OA" stoichiometry="1" />
+      <speciesReference species="ACETYL_COA" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="H+" stoichiometry="1" />
+      <speciesReference species="CIT" stoichiometry="1" />
+      <speciesReference species="CO_A" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="ACONITATEDEHYDR_RXN" name="ACONITATEDEHYDR-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="CIT" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="CIS_ACONITATE" stoichiometry="1" />
+      <speciesReference species="H2O" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+<reaction id="ISOCITDEH_RXN" name="ISOCITDEH-RXN" reversible="true">
+   <listOfReactants>
+      <speciesReference species="THREO_DS_ISO_CITRATE" stoichiometry="1" />
+      <speciesReference species="NADP" stoichiometry="1" />
+   </listOfReactants>
+   <listOfProducts>
+      <speciesReference species="2-OG" stoichiometry="1" />
+      <speciesReference species="CO2" stoichiometry="1" />
+      <speciesReference species="NADPH" stoichiometry="1" />
+   </listOfProducts>
+		<kineticLaw>
+			<math>
+				<ci> FLUX_VALUE </ci>
+			</math>
+			<listOfParameters>
+				<parameter id="LOWER_BOUND" units="mmol_per_gDW_per_hr" value="-1000" />
+				<parameter id="UPPER_BOUND" units="mmol_per_gDW_per_hr" value="1000" />
+				<parameter id="OBJECTIVE_COEFFICIENT" value="0" />
+				<parameter id="FLUX_VALUE" units="mmol_per_gDW_per_hr" value="0" />
+				<parameter id="REDUCED_COST" value="0.000000" />
+			</listOfParameters>
+		</kineticLaw>
+</reaction>
+</pathway></root>
