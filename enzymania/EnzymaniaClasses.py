@@ -207,7 +207,6 @@ class Drawable(object):
 
     def checkCollisionList(self, otherList):
         others = [o.shape for o in otherList]
-        res = ""
         try:
             collided = (self.shape.collidelistall(others))
             if len(collided) > 0:
@@ -306,11 +305,13 @@ class Enzyme(Drawable):
             pass
         else:
             #print(other.name, self.reactants)
+            #todo handle two reactants
             if other.name in self.reactants:
                 self.color=(20,200,22)
                 tmp = other
                 #print(tmp.name,"NAME")
                 new = Metabolite(name=self.products[0])
+                #todo spawn 2nd, 3rd, 4th, etc... products as well as first... maybe x,y, and vel from other???
                 #print(other.name, "NAMEn", self.products[0])
                 other.name = self.products[0]
                 #print(other.name+" NAME3")
@@ -384,17 +385,18 @@ class Metabolite(Drawable):
 
 
 class Source(Drawable):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, sourceMetab=None,*args, **kwargs):
+        #if "sourceMetab" in kwargs:
+        self.sourceMetab = sourceMetab
+#        else:
+ #               self.sourceMetab = None
         Drawable.__init__(self, *args, **kwargs)
         self.xsize = 50
         self.ysize = 20
         self.xvel = 0
         self.yvel = 0
         self.color = (255, 255, 255)
-        if "sourceMetab" in kwargs:
-            self.sourceMetab = kwargs["sourceMetab"]
-        else:
-            self.sourceMetab = None
+
 
 
 class Sink(Drawable):

@@ -38,6 +38,7 @@ def checkEvents(entityList):
     global RUNNING
     global FLOW
     reactionCounter = 0
+    global ACTIVE
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             #print(event)
@@ -70,23 +71,42 @@ def checkEvents(entityList):
         if event.type == pygame.QUIT:
             RUNNING = False
 
-        if event.type == pygame.MOUSEMOTION:
-            if event.buttons[0]:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button:
+                print("POS", event.pos)
                 # clicked and moving
-                rel = event.rel
+                rel = event.pos
                 enzymeList = [e for e in entityList if isinstance(e, Enzyme)]
                 for entity in enzymeList:
                     if entity.shape.collidepoint(pygame.mouse.get_pos()):
-                        #print("entity", entity)
-                        entity.x += rel[0]
-                        entity.y += rel[1]
+                        print("entity", entity.id)
+                        ACTIVE = entity.id
+                        print(ACTIVE)
+                        #entity.x = pygame.mouse.get_pos()[0]
+                        #entity.y = pygame.mouse.get_pos()[1]
+                        #print(entity)
                         break
+        elif event.type == pygame.MOUSEBUTTONUP:
+            ACTIVE = None
+        if event.type == pygame.MOUSEMOTION:
+            #print(active_entity)
+            try:
+                if ACTIVE:
+                    act = [e for e in entityList if isinstance(e, Enzyme) and e.id == ACTIVE]
+                    #print(act)
+                    act[0].x = pygame.mouse.get_pos()[0]
+                    act[0].y = pygame.mouse.get_pos()[1]
+                    #if event.button
+                    #active_entity = None
+            except UnboundLocalError:
+                ACTIVE = None
 
 
 WIDTH = 800
 HEIGHT = 600
 REACTIONSET = None
 SCORE = ""
+ACTIVE = None
 
 
 def texts(screen, font):
@@ -97,18 +117,20 @@ def texts(screen, font):
 
 def appendSource(entityList=None):
     if entityList is not None:
-        entityList.append(Source(sourceMetab = SOURCE))
+        entityList.append(Source())
+
 
 def appendSink(entityList):
     if entityList is not None:
         entityList.append(Sink())
 
 
-def spawnSourceMetabolite(entityList):
-    e, p, r = makeEnzymesMetabolites(REACTIONSET[0])
-    dummy = Source(sourceMetab = SOURCE)
+def spawnSourceMetabolite(entityList,species):
+    #e, p, r = makeEnzymesMetabolites(REACTIONSET[0])
+    dummy = Source()
     #todo multiple
-    r = r[0]
+    r = Metabolite(name=species, y=random.randint(0, HEIGHT-100), x=random.randint(0, WIDTH-100))
+    #r = r[0]
     r.x = dummy.x+dummy.xsize
     r.y = dummy.y+dummy.ysize
     entityList.append(r)
@@ -143,6 +165,7 @@ def main():
     global REACTIONSET
     preReactionSet = makeReactionSet(pathway_name='PWY-241')
     REACTIONSET = preReactionSet[0]
+    #REACTIONSET = makeReactionSet(pathway_name='PWY-241')
     global SOURCE
     SOURCE = preReactionSet[1][0]
     global SINK
@@ -167,7 +190,7 @@ def main():
         checkEvents(entityList)
         screen.fill((0, 0, 0))
         if FLOW and spawningTime > 800:
-            spawnSourceMetabolite(entityList)
+            spawnSourceMetabolite(entityList,SOURCE)
             spawningTime = 0
 
         screen.blit(screen, (0, 0))
@@ -255,6 +278,7 @@ def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',path
     pathwaytree = pathwaytree.getroot()
     """prepare new Reaction objects from XML"""
     res = []
+    newres = []
     longest_cycle = []
     for pathway in pathwaytree.getiterator(tag='pathway'):
         #read every pathway in file if un specified or read just specified pathway
@@ -267,8 +291,7 @@ def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',path
                     newReactantList = getSortedSp(species_list=reaction.getiterator(tag='listOfReactants'),weights=weights)
                     newProductList = getSortedSp(species_list=reaction.getiterator(tag='listOfProducts'),weights=weights)
                     # append to list of reactions
-                    # todo sort what is appended to res by the position in the longest cycle (found below)
-                    # make sure the ordering for list of products/reactants start with the elements from the main (longest_cycle)
+
                     r = Reaction(name=newReactionName, enzymeName=newReactionName, listOfProducts=newProductList, listOfReactants=newReactantList, pathway=pathway.attrib['name'])
                     res.append(r)
 
@@ -308,8 +331,21 @@ def makeReactionSet (xml='enzymes_out_curr.xml',weight_file='dummysize.txt',path
             if (len(longest_cycle) > 1):
                 print "Warning, tie for longest cycle, using first"
             longest_cycle = longest_cycle[0]
-
-    return (res,longest_cycle)
+            print(longest_cycle)
+            #sort the reaction pathway by the longest_cycle
+            for i in range(len(longest_cycle)):
+                j = i + 1
+                if j == len(longest_cycle):
+                    j = 0
+                matching_rxn = []
+                for rxn in res:
+                    if longest_cycle[i] in rxn.listOfReactants and longest_cycle[j] in rxn.listOfProducts:
+                        matching_rxn.append(rxn)
+                if len(matching_rxn) == 1:
+                    newres.append(matching_rxn[0])
+                else:
+                    print "Failed, unique and complete sort of input cycle elements. " + str(len(matching_rxn)) + " elements after " + longest_cycle[i] + ", 1 required"
+    return (newres,longest_cycle)
 
 if __name__ == "__main__":
     main()
