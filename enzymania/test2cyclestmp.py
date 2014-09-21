@@ -3,7 +3,6 @@ import elementtree.ElementTree as etree
 import random
 import sys
 import operator
-import math
 from EnzymaniaClasses import Drawable, Enzyme, Metabolite, Reaction, Source, Sink, Wall, PreviewPanel
 
 
@@ -116,21 +115,28 @@ def texts(screen, font):
    screen.blit(scoretext, (500, 457))
 
 
+def textCountdown(screen, font, text):
+   #font=pygame.font.Font(None,42)
+   text = font.render(""+str(text), 1,(99,99,88))
+   screen.blit(text, (500, 457))
+
+
+
 def appendSource(entityList=None):
     if entityList is not None:
         entityList.append(Source())
 
 
-def appendSink(entityList, sinkMetab):
+def appendSink(entityList):
     if entityList is not None:
-        entityList.append(Sink(sinkMetab=sinkMetab))
+        entityList.append(Sink())
 
 
 def spawnSourceMetabolite(entityList,species):
     #e, p, r = makeEnzymesMetabolites(REACTIONSET[0])
     dummy = Source()
     #todo multiple
-    r = Metabolite(name=species)
+    r = Metabolite(name=species, y=random.randint(0, HEIGHT-100), x=random.randint(0, WIDTH-100))
     #r = r[0]
     r.x = dummy.x+dummy.xsize
     r.y = dummy.y+dummy.ysize
@@ -188,7 +194,7 @@ def main():
     entityList = []
     #print(REACTIONSET)
     appendSource(entityList)
-    appendSink(entityList,SINK)
+    appendSink(entityList)
     entityList.append(Wall())
     p = PreviewPanel()
     PREVIEWPANEL = p
@@ -213,10 +219,11 @@ def main():
             addText(screen=screen, font=enzyme_font, txt=time_played, pos=(WIDTH-200, 10))
 
         if FLOW and spawningTime > 800:
-            spawnSourceMetabolite(entityList,SOURCE)
+            spawnSourceMetabolite(entityList, SOURCE)
             spawningTime = 0
-
         screen.blit(screen, (0, 0))
+
+        #addText(screen=screen,font=countdown_font, txt=spawningTime)
         for i, e in enumerate(entityList):
             if isinstance(e, Enzyme):
                 e.addText(screen=screen, font=enzyme_font)
@@ -229,15 +236,14 @@ def main():
                 #print(e.name)
             #if not e.textDrawn:
             #    e.addText(screen=screen, font=font)
-
-            e.checkCollisionList(entityList[:i],entityList=entityList)
+            e.checkCollisionList(entityList[:i])
             bounceOff(e)
             if isOutOfSight(e):
                 entityList.remove(e)
                 screen.blit(screen, (0, 0))
             e.move()
             e.draw(screen)
-            if isinstance(e,Sink):
+            if isinstance(e, Sink):
                 pygame.draw.rect(screen, e.color, e.boundingbox, 2)
 
         pygame.display.flip()
