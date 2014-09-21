@@ -3,6 +3,7 @@ import elementtree.ElementTree as etree
 import random
 import sys
 import operator
+import math
 from EnzymaniaClasses import Drawable, Enzyme, Metabolite, Reaction, Source, Sink, Wall, PreviewPanel
 
 
@@ -120,21 +121,20 @@ def appendSource(entityList=None):
         entityList.append(Source())
 
 
-def appendSink(entityList):
+def appendSink(entityList, sinkMetab):
     if entityList is not None:
-        entityList.append(Sink())
+        entityList.append(Sink(sinkMetab=sinkMetab))
 
 
 def spawnSourceMetabolite(entityList,species):
     #e, p, r = makeEnzymesMetabolites(REACTIONSET[0])
     dummy = Source()
     #todo multiple
-    r = Metabolite(name=species, y=random.randint(0, HEIGHT-100), x=random.randint(0, WIDTH-100))
+    r = Metabolite(name=species)
     #r = r[0]
     r.x = dummy.x+dummy.xsize
     r.y = dummy.y+dummy.ysize
     entityList.append(r)
-
 
 def spawnEnzyme(entityList):
     #grab random REACTIONSET
@@ -176,7 +176,7 @@ def main():
     entityList = []
     #print(REACTIONSET)
     appendSource(entityList)
-    appendSink(entityList)
+    appendSink(entityList,SINK)
     entityList.append(Wall())
     p = PreviewPanel()
     PREVIEWPANEL = p
@@ -207,7 +207,7 @@ def main():
             #if not e.textDrawn:
             #    e.addText(screen=screen, font=font)
 
-            e.checkCollisionList(entityList[:i])
+            e.checkCollisionList(entityList[:i],entityList=entityList)
             bounceOff(e)
             if isOutOfSight(e):
                 entityList.remove(e)

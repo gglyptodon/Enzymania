@@ -205,16 +205,22 @@ class Drawable(object):
         except TypeError as e:
             print(e)
 
-    def checkCollisionList(self, otherList):
+    def checkCollisionList(self, otherList, entityList):
         others = [o.shape for o in otherList]
         try:
             collided = (self.shape.collidelistall(others))
             if len(collided) > 0:
                 for i in collided:
                     #otherList[i].collide()
-                    self.bounceOff(otherList[i])
-
-                    otherList[i].bounceOff(self)
+                    if isinstance(otherList[i],Enzyme):
+                        otherList[i].bounceOff(self,entityList=entityList)
+                        self.bounceOff(otherList[i])
+                    elif isinstance(self,Enzyme):
+                        self.bounceOff(otherList[i],entityList=entityList)
+                        otherList[i].bounceOff(self)
+                    else:
+                        self.bounceOff(otherList[i])
+                        otherList[i].bounceOff(self)
                 self._color = (255, 0, 0)
         except TypeError as e:
             print(e)
@@ -236,7 +242,7 @@ class Drawable(object):
 #            self.yvel *=-1
 #        self.move()
 
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         res = self.name+" collided with "+other.name
         #velocity
         vx = self.xvel
@@ -299,7 +305,8 @@ class Enzyme(Drawable):
         other.x = -100
         other.y = -100
 
-    def bounceOff(self, other):
+
+    def bounceOff(self, other, entityList = None):
         new = other
         if isinstance(other, Enzyme) or isinstance(other, Wall) or isinstance(other, PreviewPanel):
             pass
@@ -314,6 +321,7 @@ class Enzyme(Drawable):
                 #todo spawn 2nd, 3rd, 4th, etc... products as well as first... maybe x,y, and vel from other???
                 #print(other.name, "NAMEn", self.products[0])
                 other.name = self.products[0]
+                        #spawn metabolit
                 #print(other.name+" NAME3")
                 if other.xvel >0:
                     other.x = tmp.x+self.xsize
@@ -324,9 +332,16 @@ class Enzyme(Drawable):
                 else:
                     other.y = tmp.y-self.ysize
 
+                if len(self.products) > 1:
+                    for i in range(1,len(self.products),1):
+                        angle = math.pi / 4 * i
+                        deltax = 1 - math.cos(angle)
+                        deltay = math.sin(angle)
+                        r = Metabolite(name=self.products[i],x=other.x,y=other.y,xvel=other.xvel + deltax,yvel=other.yvel + deltay)
+                        entityList.append(r)
             else:
                 self.color = (0, 90, 200)
-                self.explode(other)
+#                self.explode(other)
        #todo
         if isinstance(other, Metabolite):
             other.bounceOff(self)
@@ -339,7 +354,7 @@ class Metabolite(Drawable):
         self.xsize = 15
         self.ysize = 15
 
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         res = self.name+" collided with "+other.name
         #velocity
         vx = self.xvel
@@ -401,7 +416,14 @@ class Source(Drawable):
 
 class Sink(Drawable):
     def __init__(self, *args, **kwargs):
-        Drawable.__init__(self, *args, **kwargs)
+
+        if "sinkMetab" in kwargs:
+            self.sinkMetab = kwargs["sinkMetab"]
+        else:
+            self.sinkMetab = None
+        del kwargs
+
+        Drawable.__init__(self, *args)
         self.xsize = 50
         self.ysize = 10
         self.color = (255, 255, 0)
@@ -411,12 +433,8 @@ class Sink(Drawable):
         self.yvel = 0
         self.boundingbox = pygame.Rect(self.x, 0, self.xsize, 50)
         self.score = 0
-        if "sinkMetab" in kwargs:
-            self.sinkMetab = kwargs["sinkMetab"]
-        else:
-            self.sinkMetab = None
 
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         if self.sinkMetab == other.name:
             self.y -= 5
             self.ysize += 5
@@ -450,7 +468,7 @@ class Wall(Drawable):
         #self.sourceMetab = kwargs["sourceMetab"]
         #else:
         #   self.sourceMetab = None
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         pass
 
 
@@ -474,7 +492,7 @@ class PreviewPanel(Drawable):
             #self.nextEnzyme.y = y
             self.nextEnzyme.addText(screen=screen, font=font)
 
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         pass
 
 
@@ -534,7 +552,7 @@ class Score(Drawable):
             #self.nextEnzyme.y = y
             self.nextEnzyme.addText(screen=screen, font=font)
 
-    def bounceOff(self, other):
+    def bounceOff(self, other, entityList = None):
         pass
 
 
